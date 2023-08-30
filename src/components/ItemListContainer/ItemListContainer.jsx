@@ -1,30 +1,25 @@
-import React from "react";
-import ItemList from "./Itemlist";
-import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { getProducts } from "../services";
+import ItemList from "./Itemlist";
 
+const ItemListContainer = () => {
+  const [items, setItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { categoryId } = useParams();
 
-const ItemListContainer = ({greeting},) =>{
-    const [Items, setItems] = useState([])
-    const params = useParams()
-    console.log(params)
+  useEffect(() => {
+    console.log("useEffect", categoryId);
 
-    useEffect(()=>{
-        getProducts().then((response) => {
-           setItems(response)
-        });
+    setIsLoading(true);
 
-    }, []);
-    return(
-        <div>
-            <h1>{greeting}</h1>
-            <ItemList items={Items}/>
-        </div>
-        
+    getProducts(categoryId).then((response) => {
+      setItems(response);
+      setIsLoading(false);
+    });
+  }, [categoryId]);
 
-        
-    );
-
+  return <ItemList items={items} isLoading={isLoading} />;
 };
-export default ItemListContainer
+
+export default ItemListContainer;

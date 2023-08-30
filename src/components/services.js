@@ -10,30 +10,32 @@ const products =[
     {id: "9", name: "Pollo entero", price: 1150, category: "avicola" },
         
 ];
-//get product
 export const getProduct = (id) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const product = product.find((p) => p.id === id);
-  
-        if (product) {
-          resolve(product);
-        } else {
-          reject("Product not found");
-        }
-      }, 1000);
-    });
-  };
-  
-  // getProducts
-  export const getProducts = (category) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const productsFiltered = category
-          ? products.filter((product) => product.category === category)
-          : products;
-  
-        resolve(productsFiltered);
-      }, 1000);
-    });
-  };
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+
+      const product = products.find((p) => p.id === id);
+
+
+      if (product) {
+        resolve(product);
+      } else {
+        reject("product not found");
+      }
+    }, 1000);
+  });
+};
+
+
+export const getProducts = (category) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+
+      const productsFiltered = category
+        ? products.filter((product) => product.category === category)
+        : products;
+
+      resolve(productsFiltered);
+    }, 1000);
+  });
+};
